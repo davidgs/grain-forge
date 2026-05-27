@@ -1,0 +1,53 @@
+name: Deploy site
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          VITE_PUBLIC_POSTHOG_TOKEN: ${{ secrets.VITE_PUBLIC_POSTHOG_TOKEN }}
+          VITE_PUBLIC_POSTHOG_UI_HOST: ${{ secrets.VITE_PUBLIC_POSTHOG_UI_HOST }}
+          VITE_PUBLIC_POSTHOG_API_HOST: ${{ secrets.VITE_PUBLIC_POSTHOG_API_HOST }}
+          VITE_PUBLIC_STATCOUNTER_SECURITY: ${{ secrets.VITE_PUBLIC_STATCOUNTER_SECURITY }}
+        run: npm run build
+
+      - name: Deploy dist via rsync
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avzr --delete
+          path: dist/
+          remote_path: ${{ secrets.REMOTE_PATH }}
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_port: ${{ secrets.SSH_PORT }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.WEBSITE_DEPLOY_KEY }}
+          remote_key_pass: ${{ secrets.DEPLOY_KEY_PASS }}
