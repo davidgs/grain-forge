@@ -39,7 +39,9 @@ export default function PortfolioView({
   const hasMultipleProjects = projectCount > 1;
   const feedbackTestimonial =
     currentProject?.feedback && Array.isArray(testimonials)
-      ? testimonials.find((testimonial) => testimonial.id === currentProject.feedback)
+      ? testimonials.find(
+          (testimonial) => testimonial.id === currentProject.feedback,
+        )
       : null;
   const currentProjectImages =
     currentProject?.images?.length > 0
