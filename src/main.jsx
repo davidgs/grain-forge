@@ -5,14 +5,18 @@ import App from "./App.jsx";
 import posthog from "posthog-js";
 import { PostHogProvider } from "@posthog/react";
 
-function loadStatcounter() {
+function loadStatcounter(securityKey) {
+  if (!securityKey) {
+    return;
+  }
+
   if (document.querySelector('script[data-statcounter="grain-forge"]')) {
     return;
   }
 
   window.sc_project = 13244648;
   window.sc_invisible = 1;
-  window.sc_security = "2fc12722";
+  window.sc_security = securityKey;
 
   const script = document.createElement("script");
   script.type = "text/javascript";
@@ -34,16 +38,20 @@ function AnalyticsBootstrap() {
       }
 
       const token = import.meta.env.VITE_PUBLIC_POSTHOG_TOKEN;
-      const host = import.meta.env.VITE_PUBLIC_POSTHOG_HOST;
+      const host = import.meta.env.VITE_PUBLIC_POSTHOG_API_HOST;
+      const uiHost = import.meta.env.VITE_PUBLIC_POSTHOG_UI_HOST;
+      const statcounterSecurity =
+        import.meta.env.VITE_PUBLIC_STATCOUNTER_SECURITY;
 
       if (token && host && !posthog.__loaded) {
         posthog.init(token, {
           api_host: host,
+          ui_host: uiHost,
           defaults: "2026-01-30",
         });
       }
 
-      loadStatcounter();
+      loadStatcounter(statcounterSecurity);
     };
 
     const startAfterPaint = () => {
