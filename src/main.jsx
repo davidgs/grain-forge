@@ -26,6 +26,21 @@ function loadStatcounter(securityKey) {
   document.body.appendChild(script);
 }
 
+function initGoogleAnalytics() {
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = "https://www.googletagmanager.com/gtag/js?id=G-PPDXTG44W8";
+  document.head.appendChild(script);
+
+  const inlineScript = document.createElement("script");
+  inlineScript.textContent = `
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PPDXTG44W8');
+  `;
+  document.head.appendChild(inlineScript);
+}
 function AnalyticsBootstrap() {
   useEffect(() => {
     let cancelled = false;
@@ -52,6 +67,7 @@ function AnalyticsBootstrap() {
       }
 
       loadStatcounter(statcounterSecurity);
+      initGoogleAnalytics();
     };
 
     const startAfterPaint = () => {

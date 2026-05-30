@@ -11,6 +11,7 @@ export default function HomeView({
   onContactSubmit,
   onOpenCommissionPage,
   onOpenPortfolioPage,
+  onOpenSubmitTestimonialPage,
   onContactClick,
   onSocialClick,
   onTestimonialViewed,
@@ -27,27 +28,13 @@ export default function HomeView({
       <main className="relative mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-10 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
         <section className="w-full rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5 shadow-2xl backdrop-blur-sm sm:rounded-[2rem] sm:p-8 md:p-12 lg:p-16">
           <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
-            <div className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-black/30 px-3 py-2 sm:hidden">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 text-sm font-semibold tracking-tight text-white">
-                GF
-              </div>
-              <div className="leading-none">
-                <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-zinc-100">
-                  Grain Forge
-                </p>
-                <p className="mt-1 text-[9px] uppercase tracking-[0.4em] text-zinc-500">
-                  Studio
-                </p>
-              </div>
-            </div>
-
-            <div className="hidden rounded-2xl border border-white/10 bg-black/30 p-2.5 sm:inline-flex">
+            <div className="inline-flex rounded-2xl border border-white/10 bg-black/30 p-2">
               <img
                 src={grainForgeLogoHorizontal}
                 alt="Grain Forge Studio logo"
                 width="320"
                 height="78"
-                className="h-10 w-auto rounded-md object-contain"
+                className="h-9 w-auto rounded-md object-contain sm:h-10"
               />
             </div>
 
@@ -120,6 +107,7 @@ export default function HomeView({
               testimonials={testimonials}
               onTestimonialViewed={onTestimonialViewed}
               onTestimonialNavigated={onTestimonialNavigated}
+              onOpenSubmitTestimonialPage={onOpenSubmitTestimonialPage}
             />
           </div>
 
