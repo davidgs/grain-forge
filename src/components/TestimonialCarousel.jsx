@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
+import { Icon } from "@iconify/react";
+// import QuoteCloseIcon from "@iconify-react/gravity-ui";
 
 const AUTO_ADVANCE_MS = 6000;
 
@@ -19,16 +21,27 @@ function TestimonialCard({ testimonial, index, total }) {
             Client feedback
           </p>
           <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">
-            What clients say after the install.
+            What customers say:
           </h2>
         </div>
-        <Quote className="mt-1 h-6 w-6 text-amber-200/70" aria-hidden="true" />
       </div>
-
-      <p className="mt-6 max-w-3xl text-base leading-7 text-zinc-200 sm:text-lg sm:leading-8">
+      <Icon
+        icon="gravity-ui:quote-open"
+        height="2em"
+        style={{ color: "#ff9c00", marginTop: "5px" }}
+      />
+      <p
+        className="mt-6 max-w-3xl text-base text-zinc-200 sm:text-lg "
+        style={{ marginTop: "10px", marginBottom: "10px" }}
+      >
         {testimonial.quote}
       </p>
-
+      <Icon
+        icon="gravity-ui:quote-close"
+        height="2em"
+        style={{ color: "#ff9c00" }}
+      />
+      {/* <QuoteCloseIcon className="mt-1 h-6 w-6 text-amber-200/70" aria-hidden="true" /> */}
       <div className="mt-6 flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-white">
@@ -43,10 +56,12 @@ function TestimonialCard({ testimonial, index, total }) {
           >
             {Array.from({ length: testimonial.rating }).map(
               (_, ratingIndex) => (
-                <Star
+                <Heart
                   key={ratingIndex}
-                  className="h-4 w-4 fill-current"
+                  className="h-4 w-4 text-red-200"
                   aria-hidden="true"
+                  color="red"
+                  fill="red"
                 />
               ),
             )}
@@ -61,6 +76,7 @@ export default function TestimonialCarousel({
   testimonials,
   onTestimonialViewed,
   onTestimonialNavigated,
+  onOpenSubmitTestimonialPage,
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -192,6 +208,18 @@ export default function TestimonialCarousel({
           </div>
         </div>
       ) : null}
+
+      {onOpenSubmitTestimonialPage && (
+        <div className="px-4 pb-4 pt-2 sm:px-5 sm:pb-5">
+          <button
+            type="button"
+            onClick={onOpenSubmitTestimonialPage}
+            className="rounded-md bg-gradient-to-r from-amber-300 to-orange-400 px-3 py-1.5 text-sm font-medium text-zinc-950 transition hover:from-amber-200 hover:to-orange-300"
+          >
+            Share Your Story
+          </button>
+        </div>
+      )}
     </section>
   );
 }

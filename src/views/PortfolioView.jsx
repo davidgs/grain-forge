@@ -15,6 +15,7 @@ export default function PortfolioView({
   testimonials,
   onBackHome,
   onOpenCommissionModal,
+  onOpenSubmitTestimonialPage,
   onContactClick,
   onSocialClick,
   onPortfolioViewed,
@@ -336,6 +337,7 @@ export default function PortfolioView({
                 testimonials={testimonials}
                 onTestimonialViewed={onTestimonialViewed}
                 onTestimonialNavigated={onTestimonialNavigated}
+                onOpenSubmitTestimonialPage={onOpenSubmitTestimonialPage}
               />
             </div>
 
