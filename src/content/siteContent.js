@@ -3,10 +3,11 @@ const portfolioImage = (path) => `/portfolio/${path}`;
 export const testimonials = [
   {
     id: "testimonial-1",
-    author: "Client review",
-    context: "Published customer feedback",
+    author: "Tara O.",
+    context: "Console table built for client in 2026.",
     quote:
-      "The table Grain Forge Studio made for me is beyond breathtaking. David took my design and brought it to a whole new level. I get so many compliments and love to see it every day. I’m already working on my next order. Highly recommend! ❤️❤️ - Tara O.",
+      "The table Grain Forge Studio made for me is beyond breathtaking. David took my design and brought it to a whole new level. I get so many compliments and love to see it every day. I’m already working on my next order. Highly recommend!",
+    rating: 5,
   },
 ];
 

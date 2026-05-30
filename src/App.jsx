@@ -6,6 +6,7 @@ import HomeView from "./views/HomeView.jsx";
 const CommissionsView = lazy(() => import("./views/CommissionsView.jsx"));
 const CommissionModal = lazy(() => import("./components/CommissionModal.jsx"));
 const PortfolioView = lazy(() => import("./views/PortfolioView.jsx"));
+const SubmitTestimonialView = lazy(() => import("./views/SubmitTestimonialView.jsx"));
 
 function getViewFromHash() {
   if (window.location.hash === "#commissions") {
@@ -14,6 +15,10 @@ function getViewFromHash() {
 
   if (window.location.hash === "#portfolio") {
     return "portfolio";
+  }
+
+  if (window.location.hash === "#submit-testimonial") {
+    return "submit-testimonial";
   }
 
   return "home";
@@ -164,6 +169,11 @@ export default function GrainForgeStudioWebsite() {
     window.location.hash = "portfolio";
   };
 
+  const handleOpenSubmitTestimonialPage = () => {
+    posthog?.capture("submit_testimonial_page_opened");
+    window.location.hash = "submit-testimonial";
+  };
+
   const handleOpenCommissionModal = () => {
     posthog?.capture("commission_modal_opened");
     setIsCommissionModalOpen(true);
@@ -220,6 +230,7 @@ export default function GrainForgeStudioWebsite() {
             testimonials={testimonials}
             onBackHome={handleBackHome}
             onOpenCommissionModal={handleOpenCommissionModal}
+            onOpenSubmitTestimonialPage={handleOpenSubmitTestimonialPage}
             onContactClick={handleContactClicked}
             onSocialClick={handleSocialClicked}
             onPortfolioViewed={() => {
@@ -231,6 +242,12 @@ export default function GrainForgeStudioWebsite() {
             onTestimonialViewed={handleTestimonialViewed}
             onTestimonialNavigated={handleTestimonialNavigated}
           />
+        ) : view === "submit-testimonial" ? (
+          <SubmitTestimonialView
+            onGoHome={handleBackHome}
+            onContactClick={handleContactClicked}
+            onSocialClick={handleSocialClicked}
+          />
         ) : (
           <HomeView
             contactForm={contactForm}
@@ -239,6 +256,7 @@ export default function GrainForgeStudioWebsite() {
             onContactSubmit={handleContactSubmit}
             onOpenCommissionPage={handleOpenCommissionPage}
             onOpenPortfolioPage={handleOpenPortfolioPage}
+            onOpenSubmitTestimonialPage={handleOpenSubmitTestimonialPage}
             onContactClick={handleContactClicked}
             onSocialClick={handleSocialClicked}
             onTestimonialViewed={handleTestimonialViewed}
