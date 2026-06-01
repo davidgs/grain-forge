@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@iconify-react/gravity-ui": "^1.0.3",
+    "@iconify/react": "^6.0.2",
     "@posthog/react": "^1.9.1",
     "lucide-react": "^1.16.0",
     "posthog-js": "^1.374.4",
