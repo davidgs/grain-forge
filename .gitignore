@@ -23,3 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .env.local
+
+# Generated audit and local analysis artifacts
+*lighthouse*.json
+*pa11y*.json
+localhost_*.json
+posthog-setup-report.md
