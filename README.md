@@ -1,16 +1,111 @@
-# React + Vite
+# Grain Forge Studio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Marketing site for Grain Forge Studio, built with React and Vite.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Create a production build with:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run build
+```
 
-## Expanding the ESLint configuration
+## Markdown Posts
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The site now supports a combined stream of blog posts and work-in-progress updates authored in Markdown.
+
+### Content location
+
+Add posts in `src/content/posts/`.
+
+Each post is a directory that contains:
+
+- `index.md` with frontmatter and body content
+- `images/` with images used by that post
+
+Example:
+
+```text
+src/content/posts/build-log-first-pour/
+	index.md
+	images/
+		test-pour.png
+```
+
+### Required frontmatter
+
+```md
+---
+title: Example post title
+slug: example-post-title
+date: 2026-06-01
+type: blog
+summary: One short summary sentence for cards and previews.
+draft: false
+---
+```
+
+### Optional frontmatter
+
+```md
+updatedAt: 2026-06-02
+coverImage: /portfolio/tara-console/Tara-0-3.png
+tags:
+	- process
+	- epoxy
+```
+
+### Supported `type` values
+
+- `blog`
+- `wip`
+
+### Draft behavior
+
+- `draft: true` remains visible in local development.
+- Drafts are excluded from production builds.
+
+### Images
+
+Use post-local image paths in markdown and frontmatter.
+
+Example:
+
+```md
+coverImage: ./images/test-pour.png
+![Console table detail](./images/test-pour.png)
+```
+
+The post loader rewrites these to bundled image URLs during build.
+
+### Callouts
+
+Use fenced container syntax for callouts:
+
+```md
+:::note Shop note
+This is a note callout.
+:::
+
+:::tip Why this matters
+This is a tip callout.
+:::
+
+:::warn Heads up
+This is a warning callout.
+:::
+```
+
+### Routes
+
+- `#posts` shows the full posts stream.
+- `#posts/<slug>` shows an individual entry.
+
+### Example starter file
+
+See the existing examples in `src/content/posts/` for the expected format.

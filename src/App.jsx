@@ -1,32 +1,50 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { usePostHog } from "@posthog/react";
 import { portfolioItems, testimonials } from "./content/siteContent.js";
+import { getPostBySlug, publishedPosts } from "./content/posts.js";
 import HomeView from "./views/HomeView.jsx";
 
 const CommissionsView = lazy(() => import("./views/CommissionsView.jsx"));
 const CommissionModal = lazy(() => import("./components/CommissionModal.jsx"));
 const PortfolioView = lazy(() => import("./views/PortfolioView.jsx"));
+const PostsView = lazy(() => import("./views/PostsView.jsx"));
+const PostDetailView = lazy(() => import("./views/PostDetailView.jsx"));
 const SubmitTestimonialView = lazy(() => import("./views/SubmitTestimonialView.jsx"));
 
-function getViewFromHash() {
-  if (window.location.hash === "#commissions") {
-    return "commissions";
+function getRouteFromHash() {
+  const hash = window.location.hash.replace(/^#/, "");
+
+  if (hash === "commissions") {
+    return { view: "commissions", slug: null };
   }
 
-  if (window.location.hash === "#portfolio") {
-    return "portfolio";
+  if (hash === "portfolio") {
+    return { view: "portfolio", slug: null };
   }
 
-  if (window.location.hash === "#submit-testimonial") {
-    return "submit-testimonial";
+  if (hash === "posts") {
+    return { view: "posts", slug: null };
   }
 
-  return "home";
+  if (hash.startsWith("posts/")) {
+    const slug = decodeURIComponent(hash.slice("posts/".length));
+
+    return {
+      view: slug ? "post-detail" : "posts",
+      slug: slug || null,
+    };
+  }
+
+  if (hash === "submit-testimonial") {
+    return { view: "submit-testimonial", slug: null };
+  }
+
+  return { view: "home", slug: null };
 }
 
 export default function GrainForgeStudioWebsite() {
   const posthog = usePostHog();
-  const [view, setView] = useState(getViewFromHash);
+  const [route, setRoute] = useState(getRouteFromHash);
   const [isCommissionModalOpen, setIsCommissionModalOpen] = useState(false);
   const [contactForm, setContactForm] = useState({
     name: "",
@@ -47,10 +65,14 @@ export default function GrainForgeStudioWebsite() {
     delivery: "Pickup",
     notes: "",
   });
+  const currentPost =
+    route.view === "post-detail" && route.slug
+      ? getPostBySlug(route.slug)
+      : null;
 
   useEffect(() => {
     const syncViewFromHash = () => {
-      setView(getViewFromHash());
+      setRoute(getRouteFromHash());
     };
 
     window.addEventListener("hashchange", syncViewFromHash);
@@ -58,16 +80,29 @@ export default function GrainForgeStudioWebsite() {
   }, []);
 
   useEffect(() => {
-    if (view === "commissions") {
+    if (route.view === "commissions") {
       posthog?.capture("commission_page_opened");
     }
 
-    if (view === "portfolio") {
+    if (route.view === "portfolio") {
       posthog?.capture("portfolio_page_opened", {
         projectCount: portfolioItems.length,
       });
     }
-  }, [posthog, view]);
+
+    if (route.view === "posts") {
+      posthog?.capture("posts_page_opened", {
+        postCount: publishedPosts.length,
+      });
+    }
+
+    if (route.view === "post-detail" && currentPost) {
+      posthog?.capture("post_detail_opened", {
+        slug: currentPost.slug,
+        type: currentPost.type,
+      });
+    }
+  }, [currentPost, posthog, route.view]);
 
   useEffect(() => {
     if (!isCommissionModalOpen) {
@@ -169,6 +204,14 @@ export default function GrainForgeStudioWebsite() {
     window.location.hash = "portfolio";
   };
 
+  const handleOpenPostsPage = () => {
+    window.location.hash = "posts";
+  };
+
+  const handleOpenPostDetailPage = (slug) => {
+    window.location.hash = `posts/${encodeURIComponent(slug)}`;
+  };
+
   const handleOpenSubmitTestimonialPage = () => {
     posthog?.capture("submit_testimonial_page_opened");
     window.location.hash = "submit-testimonial";
@@ -217,14 +260,15 @@ export default function GrainForgeStudioWebsite() {
           <div className="min-h-screen bg-zinc-950" aria-hidden="true" />
         }
       >
-        {view === "commissions" ? (
+        {route.view === "commissions" ? (
           <CommissionsView
             onBackHome={handleBackHome}
             onOpenCommissionModal={handleOpenCommissionModal}
             onContactClick={handleContactClicked}
             onSocialClick={handleSocialClicked}
+            onOpenPostsPage={handleOpenPostsPage}
           />
-        ) : view === "portfolio" ? (
+        ) : route.view === "portfolio" ? (
           <PortfolioView
             items={portfolioItems}
             testimonials={testimonials}
@@ -233,6 +277,7 @@ export default function GrainForgeStudioWebsite() {
             onOpenSubmitTestimonialPage={handleOpenSubmitTestimonialPage}
             onContactClick={handleContactClicked}
             onSocialClick={handleSocialClicked}
+            onOpenPostsPage={handleOpenPostsPage}
             onPortfolioViewed={() => {
               posthog?.capture("portfolio_gallery_viewed", {
                 projectCount: portfolioItems.length,
@@ -242,11 +287,32 @@ export default function GrainForgeStudioWebsite() {
             onTestimonialViewed={handleTestimonialViewed}
             onTestimonialNavigated={handleTestimonialNavigated}
           />
-        ) : view === "submit-testimonial" ? (
+        ) : route.view === "posts" ? (
+          <PostsView
+            posts={publishedPosts}
+            onBackHome={handleBackHome}
+            onOpenCommissionModal={handleOpenCommissionModal}
+            onOpenPost={handleOpenPostDetailPage}
+            onContactClick={handleContactClicked}
+            onSocialClick={handleSocialClicked}
+          />
+        ) : route.view === "post-detail" ? (
+          <PostDetailView
+            post={currentPost}
+            posts={publishedPosts}
+            onBackHome={handleBackHome}
+            onBackToPosts={handleOpenPostsPage}
+            onOpenCommissionModal={handleOpenCommissionModal}
+            onOpenPost={handleOpenPostDetailPage}
+            onContactClick={handleContactClicked}
+            onSocialClick={handleSocialClicked}
+          />
+        ) : route.view === "submit-testimonial" ? (
           <SubmitTestimonialView
             onGoHome={handleBackHome}
             onContactClick={handleContactClicked}
             onSocialClick={handleSocialClicked}
+            onOpenPostsPage={handleOpenPostsPage}
           />
         ) : (
           <HomeView
@@ -256,6 +322,7 @@ export default function GrainForgeStudioWebsite() {
             onContactSubmit={handleContactSubmit}
             onOpenCommissionPage={handleOpenCommissionPage}
             onOpenPortfolioPage={handleOpenPortfolioPage}
+            onOpenPostsPage={handleOpenPostsPage}
             onOpenSubmitTestimonialPage={handleOpenSubmitTestimonialPage}
             onContactClick={handleContactClicked}
             onSocialClick={handleSocialClicked}

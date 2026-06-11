@@ -11,6 +11,7 @@ export default function HomeView({
   onContactSubmit,
   onOpenCommissionPage,
   onOpenPortfolioPage,
+  onOpenPostsPage,
   onOpenSubmitTestimonialPage,
   onContactClick,
   onSocialClick,
@@ -57,14 +58,24 @@ export default function HomeView({
                 </p>
               </div>
 
-              <button
-                type="button"
-                onClick={onOpenPortfolioPage}
-                className="inline-flex items-center self-start rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10 lg:self-auto"
-              >
-                Portfolio
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
+              <div className="flex flex-wrap gap-3 self-start lg:self-auto">
+                <button
+                  type="button"
+                  onClick={onOpenPortfolioPage}
+                  className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+                >
+                  Portfolio
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={onOpenPostsPage}
+                  className="inline-flex items-center rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-sm font-medium text-amber-50 transition hover:bg-amber-300/15"
+                >
+                  Shop updates
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -114,6 +125,7 @@ export default function HomeView({
           <div className="mt-8 border-t border-white/10 pt-5">
             <Footer
               onContactClick={onContactClick}
+              onOpenPostsPage={onOpenPostsPage}
               onSocialClick={onSocialClick}
             />
           </div>
