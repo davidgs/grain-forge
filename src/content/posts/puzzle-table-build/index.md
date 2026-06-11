@@ -74,9 +74,9 @@ Yeah, that did **not** go as planned. I had also forgotten that, you know, wood 
 
 Despite the leakage, and having to do a second pour the next day, I think the final epoxy color came out near-perfect. From most angles, it just looks black, but as you move around, you can see the depth from the mica powders.
 
-![detailed epoxy colors](./images/epoxy-detail.jpeg)
+![detailed epoxy colors](./images/epoxy-colors.jpeg)
 
-I let it sit for about 3 days before I un-molded it thoguh I probably should have let it cure longer. Sometimes I just don't have all the patience that I should. Luckily, nothing bad happened as I removed it from the mold (other than me getting covered in wet caulk). The lawn-edging was absolutely the right call, as it just popped right off without sticking at all! I did have to use a bit of percussive encouragement to get the 2 halves to separate but that wasn't really a surprise.
+I let it sit for about 3 days before I un-molded it though I probably should have let it cure longer. Sometimes I just don't have all the patience that I should. Luckily, nothing bad happened as I removed it from the mold (other than me getting covered in wet caulk). The lawn-edging was absolutely the right call, as it just popped right off without sticking at all! I did have to use a bit of percussive encouragement to get the 2 halves to separate but that wasn't really a surprise.
 
 ## So far so good!
 
