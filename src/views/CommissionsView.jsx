@@ -5,6 +5,7 @@ export default function CommissionsView({
   onBackHome,
   onOpenCommissionModal,
   onContactClick,
+  onOpenPostsPage,
   onSocialClick,
 }) {
   return (
@@ -163,6 +164,7 @@ export default function CommissionsView({
           <div className="mt-8 border-t border-white/10 pt-5">
             <Footer
               onContactClick={onContactClick}
+              onOpenPostsPage={onOpenPostsPage}
               onSocialClick={onSocialClick}
             />
           </div>

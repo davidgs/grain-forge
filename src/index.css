@@ -18,3 +18,150 @@ body,
   margin: 0;
   min-height: 100%;
 }
+
+body {
+  background: #09090b;
+  color: #f4f4f5;
+}
+
+.markdown-content {
+  color: #d4d4d8;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.markdown-content > :first-child {
+  margin-top: 0;
+}
+
+.markdown-content > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  color: #fafafa;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 2rem 0 0.75rem;
+}
+
+.markdown-content h2 {
+  font-size: 1.85rem;
+}
+
+.markdown-content h3 {
+  font-size: 1.35rem;
+}
+
+.markdown-content h4 {
+  font-size: 1.1rem;
+}
+
+.markdown-content p,
+.markdown-content ul,
+.markdown-content ol,
+.markdown-content blockquote {
+  margin: 1rem 0;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  padding-left: 1.4rem;
+}
+
+.markdown-content li + li {
+  margin-top: 0.45rem;
+}
+
+.markdown-content a {
+  color: #fcd34d;
+}
+
+.markdown-content a:hover {
+  color: #fde68a;
+}
+
+.markdown-content strong {
+  color: #fafafa;
+}
+
+.markdown-content img {
+  display: block;
+  width: min(40%, 42rem);
+  margin: 1.75rem auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  cursor: zoom-in;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.markdown-content img:hover {
+  transform: translateY(-4px);
+  border-right-width: 4px;
+  border-bottom-width: 4px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-color: rgb(132, 126, 126);
+}
+
+.markdown-content .post-video {
+  display: block;
+  width: min(40%, 42rem);
+  margin: 1.75rem auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.1rem;
+  background: rgba(0, 0, 0, 0.55);
+  cursor: zoom-in;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.markdown-content .post-video:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.post-callout {
+  margin: 1.5rem 0;
+  padding: 1rem 1rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.post-callout-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.post-callout-note {
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.18);
+}
+
+.post-callout-note .post-callout-title {
+  color: #fde68a;
+}
+
+.post-callout-tip {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.18);
+}
+
+.post-callout-tip .post-callout-title {
+  color: #86efac;
+}
+
+.post-callout-warn {
+  background: rgba(249, 115, 22, 0.08);
+  border-color: rgba(249, 115, 22, 0.18);
+}
+
+.post-callout-warn .post-callout-title {
+  color: #fdba74;
+}

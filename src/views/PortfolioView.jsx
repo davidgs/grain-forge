@@ -15,6 +15,7 @@ export default function PortfolioView({
   testimonials,
   onBackHome,
   onOpenCommissionModal,
+  onOpenPostsPage,
   onOpenSubmitTestimonialPage,
   onContactClick,
   onSocialClick,
@@ -344,6 +345,7 @@ export default function PortfolioView({
             <div className="mt-8 border-t border-white/10 pt-5">
               <Footer
                 onContactClick={onContactClick}
+                onOpenPostsPage={onOpenPostsPage}
                 onSocialClick={onSocialClick}
               />
             </div>

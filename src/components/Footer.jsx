@@ -1,27 +1,35 @@
-export default function Footer({ onContactClick, onSocialClick }) {
+export default function Footer({ onContactClick, onOpenPostsPage, onSocialClick }) {
   return (
     <footer className="border-t border-white/10 pt-5 sm:pt-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-zinc-500 sm:text-sm">© Grain Forge Studio</p>
 
-        <a
-          href="mailto:hello@grainforgestudio.com"
-          onClick={onContactClick}
-          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white sm:text-sm"
-          aria-label="hello@grainforgestudio.com"
-        >
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="h-4 w-4"
-            fill="currentColor"
-          >
-            <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11A2.5 2.5 0 0 1 17.5 20h-11A2.5 2.5 0 0 1 4 17.5v-11Zm2.1-.6 5.4 4.2c.3.2.7.2 1 0l5.4-4.2H6.1ZM6 17.5c0 .3.2.5.5.5h11c.3 0 .5-.2.5-.5V8.2l-5.3 4.1a2.2 2.2 0 0 1-2.7 0L6 8.2v9.3Z" />
-          </svg>
-          <span>hello@grainforgestudio.com</span>
-        </a>
-
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          {onOpenPostsPage ? (
+            <button
+              type="button"
+              onClick={onOpenPostsPage}
+              className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-2 text-xs text-amber-50 transition hover:border-amber-300/35 hover:bg-amber-300/15 sm:text-sm"
+            >
+              Shop updates
+            </button>
+          ) : null}
+          <a
+            href="mailto:hello@grainforgestudio.com"
+            onClick={onContactClick}
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white sm:text-sm"
+            aria-label="hello@grainforgestudio.com"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="currentColor"
+            >
+              <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11A2.5 2.5 0 0 1 17.5 20h-11A2.5 2.5 0 0 1 4 17.5v-11Zm2.1-.6 5.4 4.2c.3.2.7.2 1 0l5.4-4.2H6.1ZM6 17.5c0 .3.2.5.5.5h11c.3 0 .5-.2.5-.5V8.2l-5.3 4.1a2.2 2.2 0 0 1-2.7 0L6 8.2v9.3Z" />
+            </svg>
+            <span>hello@grainforgestudio.com</span>
+          </a>
           <a
             href="https://www.instagram.com/grainforgestudio"
             target="_blank"
